@@ -3155,32 +3155,50 @@ input, textarea, select {
   font-size: var(--text-base);
 }
 
-/* =============================================
-   12. GRILLE DES BUREAUX EUROPE (CONTACT)
-   ============================================= */
+/* ==========================================================================
+   FIX COMPLET : NAVIGATION MOBILE & MENU DÉROULANT DES LANGUES
+   ========================================================================== */
 
-/* Style par défaut : Ordinateur (3 colonnes) */
-.offices-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 2rem;
+/* --- 1. SÉLECTEUR DE LANGUE --- */
+/* Force l'apparition du menu des langues lorsque le JS lui ajoute la classe .show */
+.lang-dropdown.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) scale(1) !important;
+  display: block !important;
 }
 
-/* Tablette portrait (max 768px) : passage à 2 colonnes */
-@media (max-width: 768px) {
-  .offices-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+
+/* --- 2. MENU HAMBURGER / MOBILE --- */
+@media (max-width: 992px) {
+  
+  /* Force le header et le bouton hamburger à rester AU-DESSUS de l'overlay noir */
+  .site-header {
+    z-index: 1000 !important;
   }
-}
+  
+  .hamburger {
+    z-index: 1002 !important;
+  }
 
-/* Mobile (max 640px) : passage à une seule colonne */
-@media (max-width: 640px) {
-  .offices-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    max-width: 400px; /* Aligne la largeur max sur les autres grilles de ton app */
-    margin: 2rem auto 0; /* Centre la colonne si l'écran est un peu plus large */
+  /* Règle manquante : Fait apparaître le menu mobile (glissement depuis la gauche) 
+     lorsque le JS lui applique la classe .active */
+  .header-nav.active {
+    left: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Assure que le menu mobile est bien positionné au premier plan complet */
+  .header-nav {
+    z-index: 1001 !important;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important;
+  }
+  
+  /* Permet à l'overlay de s'afficher correctement en arrière-plan du menu */
+  .mobile-overlay.active {
+    z-index: 999 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 }
