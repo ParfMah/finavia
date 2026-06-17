@@ -95,25 +95,6 @@
   pointer-events: auto;
 }
 
-/* --- FORCE LA VISIBILITÉ DES LIENS DANS LE MENU MOBILE --- */
-#mobileMenu .header-nav {
-  display: flex !important;
-  flex-direction: column;
-  gap: var(--sp-4);
-  padding-top: var(--sp-8);
-}
-
-#mobileMenu .nav-list {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--sp-5);
-}
-
-#mobileMenu .nav-link {
-  color: #FFFFFF !important; /* Force le texte en blanc sur le fond sombre FINAVIA */
-  font-size: var(--text-lg);
-}
-
   /* --- Hero --- */
   .hero-inner {
     grid-template-columns: 1fr;
@@ -857,55 +838,4 @@ body {
     max-width: 400px; /* Aligne la largeur max sur les autres grilles de ton app */
     margin: 2rem auto 0; /* Centre la colonne si l'écran est un peu plus large */
   }
-}
-
-/* ==========================================================================
-   FIX PROTECTION : EMPÊCHER L'OVERLAY DE FLOUTER ET BLOQUER LE MENU
-   ========================================================================== */
-
-/* 1. On s'assure que le menu global écrase absolument tout */
-#mobileMenu {
-  z-index: 99999 !important;
-}
-
-/* 2. On place l'overlay juste un cran en dessous du menu */
-#mobileOverlay {
-  z-index: 99990 !important;
-}
-
-/* 3. SÉCURITÉ ABSOLUE : On force tous les enfants directs du menu 
-   (header du menu, boutons, grille de langues) à passer DEVANT l'overlay */
-#mobileMenu > *:not(#mobileOverlay) {
-  position: relative;
-  z-index: 100000 !important;
-}
-
-/* ==========================================================================
-   CORRECTIF SÉCURITÉ : BLOCAGE DU CLIGNOTEMENT ET FORÇAGE D'AFFICHAGE
-   ========================================================================== */
-
-/* 1. Rend l'overlay totalement "transparent" aux clics de la souris ou des doigts.
-   Le clic passera À TRAVERS lui et touchera directement vos boutons et menus sans bugger. */
-#mobileOverlay, 
-.mobile-overlay,
-[id*="overlay"] {
-  pointer-events: none !important;
-}
-
-/* 2. Force le conteneur du menu à intercepter à nouveau les clics normalement */
-#mobileMenu,
-.mobile-menu,
-[id*="Menu"] {
-  pointer-events: auto !important;
-  z-index: 999999 !important;
-}
-
-/* 3. Sécurité d'affichage pour les liens (au cas où ils seraient masqués par .header-nav) */
-#mobileMenu nav,
-#mobileMenu .header-nav,
-#mobileMenu .nav-list {
-  display: flex !important;
-  flex-direction: column !important;
-  visibility: visible !important;
-  opacity: 1 !important;
 }

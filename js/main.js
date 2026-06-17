@@ -58,7 +58,7 @@ function initHeader() {
 }
 
 /* ============================================
-   3. MENU MOBILE
+   3. MENU MOBILE (VERSION CORRIGÉE DÉFINITIVE)
    Hamburger → slide-in depuis la droite
    Croix X → fermeture avec animation inverse
    ============================================ */
@@ -67,48 +67,66 @@ function initMobileMenu() {
   const mobileMenu = document.getElementById('mobileMenu');
   const overlay    = document.getElementById('mobileOverlay');
   const closeBtn   = document.getElementById('mobileClose');
-  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  // Ciblage élargi au cas où vos classes diffèrent (.mobile-nav-link ou .nav-link dans le menu)
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link, #mobileMenu .nav-link');
 
   if (!hamburger || !mobileMenu) return;
 
   // Ouvre le menu
-  function openMenu() {
+  function openMenu(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation(); // 💡 Bloque la propagation pour éviter le clignotement
+    }
     mobileMenu.classList.add('open');
     if (overlay) overlay.classList.add('visible');
     hamburger.classList.add('open');
     hamburger.setAttribute('aria-expanded', 'true');
     mobileMenu.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden'; // Bloque le scroll page
+    document.body.style.overflow = 'hidden'; // Bloque le scroll de la page
   }
 
   // Ferme le menu
-  function closeMenu() {
+  function closeMenu(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation(); // 💡 Évite les doubles déclenchements
+    }
     mobileMenu.classList.remove('open');
     if (overlay) overlay.classList.remove('visible');
     hamburger.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
     mobileMenu.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = ''; // Restore le scroll
+    document.body.style.overflow = ''; // Restaure le scroll
   }
 
-  // Événements
+  // Événements sécurisés (Click + Touchstart pour une réactivité optimale sur mobile)
   hamburger.addEventListener('click', openMenu);
-  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-  if (overlay) overlay.addEventListener('click', closeMenu);
+  hamburger.addEventListener('touchstart', openMenu, { passive: false });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMenu);
+    closeBtn.addEventListener('touchstart', closeMenu, { passive: false });
+  }
+  
+  if (overlay) {
+    overlay.addEventListener('click', closeMenu);
+    overlay.addEventListener('touchstart', closeMenu, { passive: false });
+  }
 
   // Ferme au clic sur un lien du menu
   mobileLinks.forEach(link => {
     link.addEventListener('click', closeMenu);
+    link.addEventListener('touchstart', closeMenu, { passive: false });
   });
 
   // Ferme avec la touche Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-      closeMenu();
+      closeMenu(e);
     }
   });
 }
-
 /* ============================================
    4. FAQ ACCORDÉON
    Click sur question → ouverture/fermeture réponse
@@ -465,3 +483,4 @@ function debounce(fn, delay = 300) {
 
 // Expose les utilitaires globalement
 window.finaviaUtils = { isValidEmail, isValidPhone, formatEuro, debounce, showToast };
+
