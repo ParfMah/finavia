@@ -879,3 +879,33 @@ body {
   position: relative;
   z-index: 100000 !important;
 }
+
+/* ==========================================================================
+   CORRECTIF SÉCURITÉ : BLOCAGE DU CLIGNOTEMENT ET FORÇAGE D'AFFICHAGE
+   ========================================================================== */
+
+/* 1. Rend l'overlay totalement "transparent" aux clics de la souris ou des doigts.
+   Le clic passera À TRAVERS lui et touchera directement vos boutons et menus sans bugger. */
+#mobileOverlay, 
+.mobile-overlay,
+[id*="overlay"] {
+  pointer-events: none !important;
+}
+
+/* 2. Force le conteneur du menu à intercepter à nouveau les clics normalement */
+#mobileMenu,
+.mobile-menu,
+[id*="Menu"] {
+  pointer-events: auto !important;
+  z-index: 999999 !important;
+}
+
+/* 3. Sécurité d'affichage pour les liens (au cas où ils seraient masqués par .header-nav) */
+#mobileMenu nav,
+#mobileMenu .header-nav,
+#mobileMenu .nav-list {
+  display: flex !important;
+  flex-direction: column !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
