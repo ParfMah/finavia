@@ -95,6 +95,25 @@
   pointer-events: auto;
 }
 
+/* --- FORCE LA VISIBILITÉ DES LIENS DANS LE MENU MOBILE --- */
+#mobileMenu .header-nav {
+  display: flex !important;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding-top: var(--sp-8);
+}
+
+#mobileMenu .nav-list {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-5);
+}
+
+#mobileMenu .nav-link {
+  color: #FFFFFF !important; /* Force le texte en blanc sur le fond sombre FINAVIA */
+  font-size: var(--text-lg);
+}
+
   /* --- Hero --- */
   .hero-inner {
     grid-template-columns: 1fr;
