@@ -57,6 +57,44 @@
     display: none;
   }
 
+  /* --- RÈGLES D'AFFICHAGE DU MENU MOBILE ET DE L'OVERLAY (À RAJOUTER) --- */
+#mobileMenu {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Caché par défaut à droite */
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background: #0A2540; /* Teinte principale FINAVIA */
+  z-index: 9999;
+  transition: right 0.4s ease;
+  overflow-y: auto;
+}
+
+/* Déclenchement de l'apparition lors du clic géré par main.js */
+#mobileMenu.open {
+  right: 0; 
+}
+
+#mobileOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#mobileOverlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
   /* --- Hero --- */
   .hero-inner {
     grid-template-columns: 1fr;
@@ -734,7 +772,6 @@ body {
 }
 
 /* Tous les éléments full-width restent dans le viewport */
-.site-header,
 .hero,
 .stats-section,
 .section,
