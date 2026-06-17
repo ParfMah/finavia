@@ -1780,8 +1780,6 @@ input, textarea, select {
   height: 16px;
 }
 
-.footer-col {}
-
 .footer-heading {
   font-family: var(--font-display);
   font-size: var(--text-sm);
@@ -2398,8 +2396,6 @@ input, textarea, select {
 .loan-layout.reverse > * {
   direction: ltr;
 }
-
-.loan-content {}
 
 .loan-badge {
   display: inline-flex;
@@ -3157,4 +3153,34 @@ input, textarea, select {
 
 .country-flag {
   font-size: var(--text-base);
+}
+
+/* =============================================
+   12. GRILLE DES BUREAUX EUROPE (CONTACT)
+   ============================================= */
+
+/* Style par défaut : Ordinateur (3 colonnes) */
+.offices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Tablette portrait (max 768px) : passage à 2 colonnes */
+@media (max-width: 768px) {
+  .offices-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+/* Mobile (max 640px) : passage à une seule colonne */
+@media (max-width: 640px) {
+  .offices-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 400px; /* Aligne la largeur max sur les autres grilles de ton app */
+    margin: 2rem auto 0; /* Centre la colonne si l'écran est un peu plus large */
+  }
 }
