@@ -839,3 +839,24 @@ body {
     margin: 2rem auto 0; /* Centre la colonne si l'écran est un peu plus large */
   }
 }
+
+/* ==========================================================================
+   FIX PROTECTION : EMPÊCHER L'OVERLAY DE FLOUTER ET BLOQUER LE MENU
+   ========================================================================== */
+
+/* 1. On s'assure que le menu global écrase absolument tout */
+#mobileMenu {
+  z-index: 99999 !important;
+}
+
+/* 2. On place l'overlay juste un cran en dessous du menu */
+#mobileOverlay {
+  z-index: 99990 !important;
+}
+
+/* 3. SÉCURITÉ ABSOLUE : On force tous les enfants directs du menu 
+   (header du menu, boutons, grille de langues) à passer DEVANT l'overlay */
+#mobileMenu > *:not(#mobileOverlay) {
+  position: relative;
+  z-index: 100000 !important;
+}
