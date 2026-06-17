@@ -40,60 +40,61 @@
 /* =============================================
    2. LAPTOP / TABLETTE PAYSAGE (max 1024px)
    ============================================= */
+/* =============================================
+   2. LAPTOP / TABLETTE PAYSAGE (max 1024px)
+   ============================================= */
 @media (max-width: 1024px) {
 
   /* --- Navigation --- */
-  /* Cache la nav desktop, affiche le hamburger */
   .header-nav {
     display: none;
   }
-
   .hamburger {
     display: flex;
   }
-
-  /* Cache le bouton CTA desktop */
   .header-actions .btn {
     display: none;
   }
 
-  /* --- RÈGLES D'AFFICHAGE DU MENU MOBILE ET DE L'OVERLAY (À RAJOUTER) --- */
-#mobileMenu {
-  position: fixed;
-  top: 0;
-  right: -100%; /* Caché par défaut à droite */
-  width: 100%;
-  max-width: 400px;
-  height: 100vh;
-  background: #0A2540; /* Teinte principale FINAVIA */
-  z-index: 9999;
-  transition: right 0.4s ease;
-  overflow-y: auto;
-}
+  /* ----- NOUVELLE VERSION DU MENU MOBILE ----- */
+  #mobileMenu {
+    position: fixed;
+    top: 0;
+    right: 0; /* On met right à 0 car on gère le cache avec transform */
+    width: 100%;
+    max-width: 400px;
+    height: 100dvh; /* IMPORTANT : dvh corrige le problème des barres d'adresse mobiles qui se masquent */
+    background: #0A2540;
+    z-index: 9999; /* Écrase l'overlay */
+    transition: transform 0.4s ease;
+    transform: translateX(100%); /* Menu caché par défaut */
+    overflow-y: auto;
+  }
 
-/* Déclenchement de l'apparition lors du clic géré par main.js */
-#mobileMenu.open {
-  right: 0; 
-}
+  /* Déclenchement de l'apparition lors du clic */
+  #mobileMenu.open {
+    transform: translateX(0);
+  }
 
-#mobileOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  z-index: 9998;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
+  /* Overlay (supprimer right: -100% car pas nécessaire avec transform) */
+  #mobileOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
 
-#mobileOverlay.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
+  #mobileOverlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
 
   /* --- Hero --- */
   .hero-inner {
